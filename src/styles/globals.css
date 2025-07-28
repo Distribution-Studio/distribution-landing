@@ -135,7 +135,7 @@
   .component-outline:hover,
   .component-outline:focus {
     outline-color: rgb(0, 0, 0); /* change to your desired color */
-    outline-offset: 0.19em;
+    outline-offset: 0.05em;
   }
 }
 

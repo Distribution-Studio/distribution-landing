@@ -1,11 +1,21 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useSession, signOut } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
 
 export default function MarketingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: session, isPending } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
   return (
     <div className="relative flex min-h-screen flex-col">
       {/* Header */}
@@ -16,21 +26,77 @@ export default function MarketingLayout({
               <span className="text-sm md:text-md lg:text-xl font-semibold text-[#1B322E]">Distribution Studio</span>
             </Link>
           </div>
-          <div className="flex items-center gap-4">
+          
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-6">
             <Link
-              href="https://arjunaditya.xyz/"
-              target="_blank"
-              className="flex hidden md:block bg-stone-800 text-neutral-50 px-4 py-2.5 font-medium items-center"
+              href="/pricing"
+              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
             >
-              Register
+              Pricing
             </Link>
+            <Link
+              href="/about"
+              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/why-you-need-this"
+              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
+            >
+              Why You Need This
+            </Link>
+            <Link
+              href="https://discord.gg/your-server"
+              target="_blank"
+              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
+            >
+              Discord
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <Button
+                  onClick={handleSignOut}
+                  variant="outline"
+                  size="sm"
+                  className="text-sm"
+                >
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="bg-stone-800 text-neutral-50 px-4 py-2.5 text-sm font-medium hover:bg-stone-700 transition-colors"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
 
       {/* Main content */}
       <main className="w-full">
-        <div className="max-w-7xl mx-auto ">{children}</div>
+        <div className=" mx-auto ">{children}</div>
       </main>
 
       {/* Footer */}
@@ -42,7 +108,7 @@ export default function MarketingLayout({
                 Distribution.Studio
               </h3>
               <p className="text-muted-foreground text-sm">
-                Distribution.Studio sells functional waitlists to non technical people who mostly use vibe-coded waitlists with no security.
+                We're always here for you and your targeted market. 
                 <br />
                 <br />
                 © {new Date().getFullYear()} Distribution.Studio. All rights reserved.
