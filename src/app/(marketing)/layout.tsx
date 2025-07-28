@@ -9,29 +9,20 @@ export default function MarketingLayout({
   return (
     <div className="relative flex min-h-screen flex-col">
       {/* Header */}
-      <header className="w-full py-2 bg-white">
-        <div className="flex h-16 items-center justify-between max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="flex items-center gap-6">
+      <header className="w-full py-2 bg-stone-100">
+        <div className="flex h-16 items-center justify-between max-w-5xl mx-auto px-4 lg:px-6">
+          <div className="flex items-center gap-3">
             <Link href="/" className="font-normal flex items-center gap-4">
-              <span className="text-sm md:text-lg text-neutral-800">
-                <span className="font-bold">RukList</span> serves{" "}
-                <span className="font-semibold bg-neutral-100 border border-neutral-300 px-1.5 py-1 text-black">
-                  SECURE, ROBUST and SCALEABLE Waitlists
-                </span>{" "}
-                to{" "}
-                <span className="font-semibold text-black">
-                  {"Cool People {You}"}
-                </span>{" "}
-              </span>
+              <span className="text-sm md:text-md lg:text-xl font-semibold text-[#1B322E]">Distribution Studio</span>
             </Link>
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="https://arjunaditya.xyz/"
               target="_blank"
-              className="flex hidden md:block text-muted-foreground font-medium items-center"
+              className="flex hidden md:block bg-stone-800 text-neutral-50 px-4 py-2.5 font-medium items-center"
             >
-              Arjun Aditya
+              Register
             </Link>
           </div>
         </div>
@@ -39,7 +30,7 @@ export default function MarketingLayout({
 
       {/* Main content */}
       <main className="w-full">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 ">{children}</div>
+        <div className="max-w-7xl mx-auto ">{children}</div>
       </main>
 
       {/* Footer */}

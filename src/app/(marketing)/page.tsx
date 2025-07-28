@@ -11,8 +11,8 @@ import { SecondFeature } from "@/components/second-feature";
 export default function Home() {
   return (
     <PageTransition>
-      <div className=" mx-auto px-4 max-w-5xl lg:px-6 h-auto overflow-y-auto md:overflow-hidden my-10  items-center justify-center">
-      <div className="md:min-h-screen pt-20 pb-20 md:pb-0">
+      <div className=" mx-auto h-auto overflow-y-auto md:overflow-hidden  items-center justify-center">
+      <div className="md:min-h-screen bg-stone-100 pt-20 pb-20 md:pb-0">
         <div className="relative w-full max-w-5xl aspect-[16/8] rounded-2xl mx-auto overflow-hidden">
           <Image
             src="/hero.webp"
