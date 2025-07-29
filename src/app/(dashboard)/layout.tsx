@@ -27,6 +27,9 @@ export default function DashboardLayout({
               <Link href="/dashboard/cursor-rules" className="text-gray-600 hover:text-gray-900 transition-colors font-medium text-sm">
                 My Cursor Rules
               </Link>
+              <Link href="/dashboard/billing" className="text-gray-600 hover:text-gray-900 transition-colors font-medium text-sm">
+                Billing
+              </Link>
             </nav>
           </div>
           <div className="flex items-center gap-4">

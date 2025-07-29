@@ -1,4 +1,3 @@
-import { PromptSubmissionForm } from "@/components/prompt-submission-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -36,9 +35,6 @@ export default function CreatePromptPage() {
           <CardHeader>
             <CardTitle>Prompt Details</CardTitle>
           </CardHeader>
-          <CardContent>
-            <PromptSubmissionForm />
-          </CardContent>
         </Card>
       </div>
     </div>

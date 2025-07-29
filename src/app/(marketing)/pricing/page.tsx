@@ -1,9 +1,22 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import PageTransition from "@/components/page-transition";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { auth } from "@/lib/auth-client";
 
 export default function PricingPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  
   const pricingTiers = [
     {
+      id: 'plan_basic',
+      name: 'Basic',
       price: "$19",
+      period: 'month',
       features: [
         "Live Scan with Alerts",
         "5 Keywords",
@@ -12,7 +25,10 @@ export default function PricingPage() {
       ]
     },
     {
+      id: 'plan_pro',
+      name: 'Pro',
       price: "$29",
+      period: 'month',
       features: [
         "20 Keywords",
         "15 Members",
@@ -20,7 +36,10 @@ export default function PricingPage() {
       ]
     },
     {
+      id: 'plan_premium',
+      name: 'Premium',
       price: "$69",
+      period: 'month',
       features: [
         "55 Keywords",
         "Unlimited Members",
@@ -28,13 +47,38 @@ export default function PricingPage() {
       ]
     },
     {
-      price: "Enterprise",
+      id: 'plan_enterprise',
+      name: 'Enterprise',
+      price: "Custom",
+      period: '',
       features: [
         "Custom Self Hosted Solutions",
         "Manual Marketing with Human Touch"
       ]
     }
   ];
+  
+  const handleSubscribe = async (planId: string) => {
+    try {
+      setLoading(true);
+      
+      // Check if user is logged in
+      const session = await auth.getSession();
+      if (!session) {
+        // Redirect to login if not authenticated
+        router.push(`/login?redirect=${encodeURIComponent('/dashboard/billing')}&plan=${planId}`);
+        return;
+      }
+      
+      // Redirect to billing page to complete subscription
+      router.push(`/dashboard/billing?plan=${planId}`);
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <PageTransition>
@@ -72,9 +116,13 @@ export default function PricingPage() {
                 </div>
 
                 <div className="mt-8">
-                  <button className="w-full bg-black text-white py-3 px-6 font-medium hover:bg-neutral-800 transition-colors">
-                    Get Started
-                  </button>
+                  <Button 
+                    className="w-full bg-black text-white py-3 px-6 font-medium hover:bg-neutral-800 transition-colors"
+                    onClick={() => handleSubscribe(tier.id)}
+                    disabled={loading || tier.id === 'plan_enterprise'}
+                  >
+                    {tier.id === 'plan_enterprise' ? 'Contact Sales' : 'Get Started'}
+                  </Button>
                 </div>
               </div>
             ))}
@@ -89,4 +137,4 @@ export default function PricingPage() {
       </div>
     </PageTransition>
   );
-} 
+}

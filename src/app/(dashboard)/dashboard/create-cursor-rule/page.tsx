@@ -1,4 +1,3 @@
-import { CursorRuleSubmissionForm } from "@/components/cursor-rule-submission-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Terminal, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -37,7 +36,7 @@ export default function CreateCursorRulePage() {
             <CardTitle>Cursor Rule Details</CardTitle>
           </CardHeader>
           <CardContent>
-            <CursorRuleSubmissionForm />
+Rahhhh
           </CardContent>
         </Card>
       </div>

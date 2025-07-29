@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { User, CheckCircle, RefreshCw, Sparkles } from "lucide-react";
-import { trackRegistration } from "@/components/analytics";
 
 export default function OnboardingPage() {
   const { data: session, isPending } = useSession();
@@ -175,9 +174,6 @@ export default function OnboardingPage() {
           console.log("[Onboarding] Redirecting to dashboard");
           router.push("/dashboard");
         }, 3000);
-
-        // Track registration completion in Google Analytics
-        trackRegistration(session.user.id, formData.username);
       } else {
         console.log("[Onboarding] API error:", responseData);
         toast.error(responseData.error || "Failed to setup profile");

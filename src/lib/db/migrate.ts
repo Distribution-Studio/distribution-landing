@@ -1,12 +1,17 @@
 import { migrate } from "drizzle-orm/neon-http/migrator";
 import { db } from ".";
+import { addBillingTables } from "./migrations/add-billing-tables";
 
 const main = async () => {
   const startTime = Date.now();
   console.log(`[${new Date().toISOString()}] Starting database migration...`);
 
   try {
+    // Run Drizzle migrations
     await migrate(db, { migrationsFolder: "drizzle/migrations" });
+    
+    // Run custom migrations
+    await addBillingTables();
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(

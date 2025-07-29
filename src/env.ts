@@ -14,7 +14,14 @@ export const env = createEnv({
     // Github
     GITHUB_CLIENT_ID: z.string().min(1),
     GITHUB_CLIENT_SECRET: z.string().min(1),
+    // Polar.sh
+    POLAR_API_KEY: z.string().min(1),
   },
-  client: {},
-  experimental__runtimeEnv: {},
+  client: {
+    // Polar.sh
+    NEXT_PUBLIC_POLAR_PUBLIC_KEY: z.string().min(1),
+  },
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_POLAR_PUBLIC_KEY: process.env.NEXT_PUBLIC_POLAR_PUBLIC_KEY,
+  },
 });
