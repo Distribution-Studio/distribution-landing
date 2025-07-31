@@ -56,20 +56,25 @@ export interface PolarInvoice {
 
 // Polar.sh API client
 export class PolarClient {
-  private apiKey: string;
+  private apiKey: string | undefined;
   private baseUrl: string = 'https://api.polar.sh/v1';
 
   constructor() {
     this.apiKey = env.POLAR_API_KEY;
+  }
+
+  private ensureApiKey(): string {
     if (!this.apiKey) {
-      throw new Error('POLAR_API_KEY is not defined');
+      throw new Error('POLAR_API_KEY is not configured. Please set the environment variable to use payment features.');
     }
+    return this.apiKey;
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+    const apiKey = this.ensureApiKey();
     const url = `${this.baseUrl}${endpoint}`;
     const headers = {
-      'Authorization': `Bearer ${this.apiKey}`,
+      'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
       ...options.headers,
     };
@@ -144,5 +149,12 @@ export class PolarClient {
   }
 }
 
-// Singleton instance
-export const polarClient = new PolarClient();
+// Singleton instance - only create if not in build mode
+let _polarClient: PolarClient | null = null;
+
+export const polarClient = (() => {
+  if (!_polarClient) {
+    _polarClient = new PolarClient();
+  }
+  return _polarClient;
+})();

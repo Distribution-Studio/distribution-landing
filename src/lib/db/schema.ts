@@ -3,9 +3,12 @@ import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core"
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
+  username: text("username").unique(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
+  bio: text("bio"),
+  website: text("website"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
   customerId: text("customer_id"),
@@ -97,4 +100,72 @@ export const invoice = pgTable("invoice", {
   invoicePdf: text("invoice_pdf"),
   createdAt: timestamp("created_at").notNull(),
   paidAt: timestamp("paid_at"),
+});
+
+// Keywords for monitoring
+export const keyword = pgTable("keyword", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  keyword: text("keyword").notNull(),
+  isActive: boolean("is_active").notNull().default(true),
+  alertsEnabled: boolean("alerts_enabled").notNull().default(true),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+// Reddit mentions found
+export const mention = pgTable("mention", {
+  id: text("id").primaryKey(),
+  keywordId: text("keyword_id")
+    .notNull()
+    .references(() => keyword.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  redditPostId: text("reddit_post_id").notNull(),
+  subreddit: text("subreddit").notNull(),
+  title: text("title").notNull(),
+  content: text("content"),
+  author: text("author").notNull(),
+  url: text("url").notNull(),
+  score: integer("score").default(0),
+  numComments: integer("num_comments").default(0),
+  createdAt: timestamp("created_at").notNull(),
+  redditCreatedAt: timestamp("reddit_created_at").notNull(),
+});
+
+// Manual search results
+export const searchResult = pgTable("search_result", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  query: text("query").notNull(),
+  redditPostId: text("reddit_post_id").notNull(),
+  subreddit: text("subreddit").notNull(),
+  title: text("title").notNull(),
+  content: text("content"),
+  author: text("author").notNull(),
+  url: text("url").notNull(),
+  score: integer("score").default(0),
+  numComments: integer("num_comments").default(0),
+  createdAt: timestamp("created_at").notNull(),
+  redditCreatedAt: timestamp("reddit_created_at").notNull(),
+});
+
+// Alerts sent to users
+export const alert = pgTable("alert", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  mentionId: text("mention_id")
+    .notNull()
+    .references(() => mention.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // email, webhook, etc.
+  status: text("status").notNull(), // sent, failed, pending
+  sentAt: timestamp("sent_at"),
+  createdAt: timestamp("created_at").notNull(),
 });
