@@ -26,70 +26,16 @@ export default function MarketingLayout({
               <span className="text-sm md:text-md lg:text-xl font-semibold text-[#1B322E]">Distribution Studio</span>
             </Link>
           </div>
-          
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/why-you-need-this"
-              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-            >
-              Why You Need This
-            </Link>
-            <Link
-              href="https://discord.gg/your-server"
-              target="_blank"
-              className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-            >
-              Discord
-            </Link>
-          </nav>
 
           <div className="flex items-center gap-3">
-            {session ? (
               <>
                 <Link
-                  href="/dashboard"
-                  className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-                >
-                  Dashboard
-                </Link>
-                <Button
-                  onClick={handleSignOut}
-                  variant="outline"
-                  size="sm"
-                  className="text-sm"
-                >
-                  Sign Out
-                </Button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/sign-in"
-                  className="text-sm font-medium text-neutral-700 hover:text-black transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/sign-up"
+                  href="https://cal.com/arjunaditya/30min?overlayCalendar=true"
                   className="bg-stone-800 text-neutral-50 px-4 py-2.5 text-sm font-medium hover:bg-stone-700 transition-colors"
                 >
-                  Get Started
+                  Call Us
                 </Link>
               </>
-            )}
           </div>
         </div>
       </header>

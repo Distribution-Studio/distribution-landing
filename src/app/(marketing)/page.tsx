@@ -16,7 +16,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row gap-10 max-w-5xl py-20 px-5 mx-auto items-center">
         <div>
         <h1 className="text-black text-4xl md:text-5xl font-bold z-10 ">
-            Distribute on Reddit Better than Ever
+            Distribute on Social Media Better
           </h1>
         <p className="text-md text-muted-foreground mt-3 max-w-lg">
           Minimizing the friction of{" "}
@@ -30,22 +30,6 @@ export default function Home() {
       </div>
       <div className="py-16">
       <Features />
-      </div>
-      <div className="mx-4 my-20">
-        <div className="relative w-full max-w-5xl aspect-[10/3] rounded-2xl mx-auto overflow-hidden">
-          <Image
-            src="/gradient-2.webp"
-            alt="Gradiant 2"
-            width={800}
-            height={450}
-            priority
-            draggable={false}
-            className="rounded-xl select-none brightness-75 object-cover w-full h-full"
-          />
-          <h1 className="absolute bottom-20 font-mono text-white text-2xl pl-10 md:text-3xl font-bold text-center z-10 whitespace-nowrap">
-            STALK Your Potential Customers or Find AN EMPTY SPACE
-          </h1>
-        </div>
       </div>
       {/* <TemplatesSection /> */}
     </div>
